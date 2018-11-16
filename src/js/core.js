@@ -16,6 +16,12 @@
     function handleDisabledEnterKeydown(event, element) {
         if (this.options.disableReturn || element.getAttribute('data-disable-return')) {
             event.preventDefault();
+            if (typeof this.options.enterKeydownCallback === 'function') {
+                var _node = MediumEditor.selection.getSelectionStart(this.options.ownerDocument),
+                textContent = _node.textContent,
+                caretPositions = MediumEditor.selection.getCaretOffsets(_node);
+                this.options.enterKeydownCallback(textContent, caretPositions);
+            }
         } else if (this.options.disableDoubleReturn || element.getAttribute('data-disable-double-return')) {
             var node = MediumEditor.selection.getSelectionStart(this.options.ownerDocument);
 
