@@ -6783,6 +6783,9 @@ MediumEditor.extensions = {};
 
             // when cursor is at the end of <blockquote>,
             // then pressing enter key should create <p> tag, not <blockquote>
+            if (typeof this.options.enterKeydownCallback === 'function') {
+                this.options.enterKeydownCallback();
+            }
             p = this.options.ownerDocument.createElement('p');
             p.innerHTML = '<br>';
             node.parentElement.insertBefore(p, node.nextSibling);
